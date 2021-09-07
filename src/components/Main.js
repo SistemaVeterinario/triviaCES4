@@ -1,5 +1,6 @@
 import React, {Fragment, useEffect, useContext, useState} from "react";
 import LoginContext from '../context/Login/loginContext';
+import Timer from './Timer';
 const Main = ()=> {
 
     const loginContext = useContext(LoginContext);
@@ -28,6 +29,9 @@ const Main = ()=> {
 return(
     <Fragment>
      <div className="contenedor-principal">
+        <div class="row">
+          <Timer>hola</Timer>
+        </div>
        <div className="question">
          {questions? (
            <h3>{question}</h3>
