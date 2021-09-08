@@ -2,7 +2,7 @@ import React from 'react'
 import { useState, useEffect } from 'react';
 
 const Timer = () => {
-    const {initialMinute = 0,initialSeconds = 60} = 0;
+    const {initialMinute = 0,initialSeconds = 30} = 0;
     const [ minutes, setMinutes ] = useState(initialMinute);
     const [seconds, setSeconds ] =  useState(initialSeconds);
     useEffect(()=>{
