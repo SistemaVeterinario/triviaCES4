@@ -27,11 +27,11 @@ const Timer = () => {
     return (
         <div>
         { minutes === 0 && seconds === 0
-            ? <h1> ya se acabó</h1>
+            ? <h1>Ya terminó</h1>
             : <h1> {minutes}:{seconds < 10 ?  `0${seconds}` : seconds}</h1> 
         }
         </div>
     )
 }
-
+    
 export default Timer;
