@@ -1,5 +1,4 @@
 import React, {Fragment, useEffect, useContext, useState} from "react";
-import EarningsContext from "../context/Earnings/earningsContext";
 import LoginContext from '../context/Login/loginContext';
 import Timer from './Timer';
 
@@ -58,8 +57,6 @@ const Main = ()=> {
           sendQuestion();
         }, 5000);
     }
-
-
 
     const AddNewEarning = () => {
       // const earningsContext = useContext(EarningsContext);
