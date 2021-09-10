@@ -3,7 +3,8 @@ import LoginContext from "../Login/loginContext";
 import LoginReducer from "../Login/loginReducer";
 import {
   SAVE_USER,
-  SAVE_QUESTIONS
+  SAVE_QUESTIONS,
+  FINISH_GAME
 } from '../../types';
 const LoginState = (props) => {
   const initialState = {
@@ -32,6 +33,12 @@ const LoginState = (props) => {
 
     }
 
+    const finishGame = () => {
+      dispatch({
+        type: FINISH_GAME, 
+      })
+    }
+
    return (
     <LoginContext.Provider 
         value={{
@@ -39,6 +46,7 @@ const LoginState = (props) => {
           questions: state.questions,
           saveUser,
           searchQuestions,
+          finishGame
         }}>
      {props.children}
      </LoginContext.Provider>

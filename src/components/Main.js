@@ -3,9 +3,7 @@ import EarningsContext from "../context/Earnings/earningsContext";
 import LoginContext from '../context/Login/loginContext';
 import Timer from './Timer';
 
-window.correctAnswer = "";
 window.updatedQuestions = [];
-window.triviaFinished = false;
 
 const Main = ()=> {
 
@@ -13,6 +11,9 @@ const Main = ()=> {
     const {questions} = loginContext;
     const [answer, setAnswer] = useState([]);
     const [question ,setQuestion] = useState('');
+    const [selectedAnswer, setSelectedAnswer]=useState('');
+    const [currentCorrectAnswer, setCurrentCorrentAnswer]=useState('');
+    const [answerClicked, setAnswerClicked]=useState(false);
 
     useEffect(() => {
       sendQuestion();
@@ -22,25 +23,26 @@ const Main = ()=> {
       if(window.updatedQuestions.length < 1 && !window.triviaFinished) {
          window.updatedQuestions = questions;
       } 
-      console.log(window.updatedQuestions);
 
       var index = Math.floor(Math.random()* window.updatedQuestions.length);
       var correct = window.updatedQuestions[index]?.correct_answer;
-      window.correctAnswer = correct;
+      setCurrentCorrentAnswer(correct);
+      
       var answers = window.updatedQuestions[index]?.incorrect_answers;
       answers?.push(correct);
       answers?.sort();
-      
+
       setQuestion(window.updatedQuestions[index]?.question);
       setAnswer(answers);
+
     }
 
-    const answerSelected = (answer, currentQuestion) => {
-      if(answer === window.correctAnswer){
-          console.log(answer);
-          console.log(window.correctAnswer);
+    const answerSelected = (answerSelected, currentQuestion) => {
+      setAnswerClicked(true);
+      if(answerSelected === currentCorrectAnswer) {
+          setSelectedAnswer(answerSelected)
           removeQuestion(currentQuestion);
-      }
+      } 
     }
 
     const removeQuestion = (question) => {
@@ -51,9 +53,13 @@ const Main = ()=> {
         if(window.updatedQuestions.length < 1){
           window.triviaFinished = true;
         }
-        console.log(window.updatedQuestions);
-        sendQuestion();
+
+        setTimeout(() => {
+          sendQuestion();
+        }, 5000);
     }
+
+
 
     const AddNewEarning = () => {
       // const earningsContext = useContext(EarningsContext);
@@ -77,11 +83,21 @@ return(
        <div className="contenedor">
            <div class="row">
              {questions ? (
-                answer?.map(a=> (
+                answer?.map(currentAnswer=> (
                  <div class="col-sm-6">
                     <div class="card text-center">
-                      <div class="card-body">                      
-                       <button className="btn btn-primary btn-lg btn-block" onClick={() => answerSelected(a, question)}>{a}</button>
+                      <div class="card-body">  
+                       {answerClicked ? (
+                            <button  className={selectedAnswer === currentAnswer ? "btn btn-success" : "btn btn-danger"}
+                                     onClick={() => answerSelected( currentAnswer, question)}>
+                                    {currentAnswer}
+                            </button>
+                       ) : (
+                            <button className={"btn btn-primary btn-lg btn-block"}
+                                    onClick={() => answerSelected( currentAnswer, question)}>
+                                    {currentAnswer}
+                            </button>
+                       )};
                     </div>
                   </div>
                  </div>
@@ -92,7 +108,6 @@ return(
      </div>
   </Fragment>
 )
-
 
 }
 export default Main;
