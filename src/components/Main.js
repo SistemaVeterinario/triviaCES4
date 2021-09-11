@@ -3,6 +3,7 @@ import LoginContext from '../context/Login/loginContext';
 import Timer from './Timer';
 
 window.updatedQuestions = [];
+window.triviaFinished = false;
 
 const Main = ()=> {
 
@@ -13,6 +14,7 @@ const Main = ()=> {
     const [selectedAnswer, setSelectedAnswer]=useState('');
     const [currentCorrectAnswer, setCurrentCorrentAnswer]=useState('');
     const [answerClicked, setAnswerClicked]=useState(false);
+    const {addEarnings} = loginContext;
 
     useEffect(() => {
       sendQuestion();
@@ -33,12 +35,12 @@ const Main = ()=> {
 
       setQuestion(window.updatedQuestions[index]?.question);
       setAnswer(answers);
-
     }
 
     const answerSelected = (answerSelected, currentQuestion) => {
       setAnswerClicked(true);
       if(answerSelected === currentCorrectAnswer) {
+          addEarnings()
           setSelectedAnswer(answerSelected)
           removeQuestion(currentQuestion);
       } 
@@ -51,10 +53,12 @@ const Main = ()=> {
 
         if(window.updatedQuestions.length < 1){
           window.triviaFinished = true;
+          window.updatedQuestions = [];
         }
 
         setTimeout(() => {
           sendQuestion();
+          setAnswerClicked(false);
         }, 5000);
     }
 

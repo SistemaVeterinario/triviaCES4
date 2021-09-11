@@ -9,6 +9,7 @@ const Timer = () => {
     const {initialMinute = 0,initialSeconds = 30} = 0;
     const [ minutes, setMinutes ] = useState(initialMinute);
     const [seconds, setSeconds ] =  useState(initialSeconds);
+
     useEffect(()=>{
     let myInterval = setInterval(() => {
             if (seconds > 0) {
@@ -26,11 +27,13 @@ const Timer = () => {
             if(minutes === 0 && seconds === 0){
                 finishGame();
             }
+
         }, 1000)
         return ()=> {
             clearInterval(myInterval);
           };
     });
+
 
     return (
         <div>

@@ -4,13 +4,15 @@ import LoginReducer from "../Login/loginReducer";
 import {
   SAVE_USER,
   SAVE_QUESTIONS,
-  FINISH_GAME
+  FINISH_GAME,
+  ADD_EARNINGS
 } from '../../types';
 const LoginState = (props) => {
   const initialState = {
     user: '',
     questions:[],
-    question: ''
+    question: '',
+    earnings: 0
   };
   const [state, dispatch] = useReducer(LoginReducer, initialState);
 
@@ -33,9 +35,15 @@ const LoginState = (props) => {
 
     }
 
+    const addEarnings = () => {
+      dispatch({
+        type: ADD_EARNINGS,
+      })
+    }
+
     const finishGame = () => {
       dispatch({
-        type: FINISH_GAME, 
+        type: FINISH_GAME
       })
     }
 
@@ -46,7 +54,8 @@ const LoginState = (props) => {
           questions: state.questions,
           saveUser,
           searchQuestions,
-          finishGame
+          finishGame,
+          addEarnings
         }}>
      {props.children}
      </LoginContext.Provider>
