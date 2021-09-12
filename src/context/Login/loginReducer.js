@@ -27,7 +27,7 @@ export default (state, action) => {
         case FINISH_GAME:
             return{
                 ...state,
-                questions:[]
+                gameOver: action.payload
             }    
         default:
             return state;

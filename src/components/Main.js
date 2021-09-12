@@ -17,6 +17,9 @@ const Main = ()=> {
     const {addEarnings} = loginContext;
     const [currentEarnings, setCurrentEarnigs] = useState(0);
     const {resetTimer} = loginContext;
+    const {finishGame} = loginContext;
+    const {gameOver} = loginContext;
+    const {earnings } = loginContext;
 
     useEffect(() => {
       sendQuestion();
@@ -26,6 +29,10 @@ const Main = ()=> {
       if(window.updatedQuestions.length < 1 && !window.triviaFinished) {
          window.updatedQuestions = questions;
       } 
+
+      if(gameOver) {
+        window.updatedQuestions = [];
+      }
 
       var index = Math.floor(Math.random()* window.updatedQuestions.length);
       var correct = window.updatedQuestions[index]?.correct_answer;
@@ -44,6 +51,10 @@ const Main = ()=> {
       if(answerSelected === currentCorrectAnswer) {
           setSelectedAnswer(answerSelected)
           removeQuestion(currentQuestion);
+      }
+      else {
+        alert("Has perdido, tu puntuación es:" + earnings);
+        finishGame(true);
       } 
     }
 
@@ -55,6 +66,8 @@ const Main = ()=> {
         if(window.updatedQuestions.length < 1){
           window.triviaFinished = true;
           window.updatedQuestions = [];
+          finishGame(true);
+          alert("Felicidades, has ganado:" + earnings);
         }
 
         setTimeout(() => {
@@ -66,7 +79,6 @@ const Main = ()=> {
           addEarnings(earnings);
           resetTimer(30);
         }, 3000);
-
     }
 
 return(

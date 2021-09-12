@@ -8,14 +8,17 @@ import {
   ADD_EARNINGS,
   RESET_TIMER
 } from '../../types';
+
 const LoginState = (props) => {
   const initialState = {
     user: '',
     questions:[],
     question: '',
     earnings: 0,
-    timer: 30
+    timer: 30,
+    gameOver: false
   };
+
   const [state, dispatch] = useReducer(LoginReducer, initialState);
 
   const saveUser = userSend => {
@@ -51,10 +54,10 @@ const LoginState = (props) => {
       })
     }
 
-    const finishGame = () => {
+    const finishGame = gameOver => {
       dispatch({
         type: FINISH_GAME,
-        payload: []
+        payload: gameOver
       })
     }
 
@@ -66,6 +69,7 @@ const LoginState = (props) => {
           saveUser,
           searchQuestions,
           finishGame,
+          gameOver: state.gameOver,
           addEarnings,
           earnings: state.earnings,
           timer: state.timer,
