@@ -1,6 +1,8 @@
 import {
   SAVE_USER,
-  SAVE_QUESTIONS
+  SAVE_QUESTIONS,
+  FINISH_GAME,
+  ADD_EARNINGS
 } from '../../types';
 
 export default (state, action) => {
@@ -15,6 +17,18 @@ export default (state, action) => {
                   ...state,
                 questions: action.payload
             } 
+
+        case ADD_EARNINGS:
+            return {
+                ...state,
+                earnings: action.payload
+            }
+
+        case FINISH_GAME:
+            return{
+                ...state,
+                gameOver: action.payload
+            }    
         default:
             return state;
     }
