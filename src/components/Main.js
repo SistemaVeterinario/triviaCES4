@@ -15,6 +15,8 @@ const Main = ()=> {
     const [currentCorrectAnswer, setCurrentCorrentAnswer]=useState('');
     const [answerClicked, setAnswerClicked]=useState(false);
     const {addEarnings} = loginContext;
+    const [currentEarnings, setCurrentEarnigs] = useState(0);
+    const {resetTimer} = loginContext;
 
     useEffect(() => {
       sendQuestion();
@@ -40,7 +42,6 @@ const Main = ()=> {
     const answerSelected = (answerSelected, currentQuestion) => {
       setAnswerClicked(true);
       if(answerSelected === currentCorrectAnswer) {
-          addEarnings()
           setSelectedAnswer(answerSelected)
           removeQuestion(currentQuestion);
       } 
@@ -57,17 +58,15 @@ const Main = ()=> {
         }
 
         setTimeout(() => {
+          addEarnings();
           sendQuestion();
           setAnswerClicked(false);
-        }, 5000);
-    }
+          var earnings = currentEarnings + 1000;
+          setCurrentEarnigs(earnings);
+          addEarnings(earnings);
+          resetTimer(30);
+        }, 3000);
 
-    const AddNewEarning = () => {
-      // const earningsContext = useContext(EarningsContext);
-      // const {plusEarnings} = earningsContext;
-      // const [earning, setEarning] = useState({
-      //   earning: earning + 1000,
-      // });
     }
 
 return(

@@ -5,10 +5,11 @@ const Timer = () => {
 
     const loginContext = useContext(LoginContext);
     const {finishGame} = loginContext;
+    const { timer } = loginContext;
 
-    const {initialMinute = 0,initialSeconds = 30} = 0;
+    const {initialMinute = 0,initialSeconds = timer} = 0;
     const [ minutes, setMinutes ] = useState(initialMinute);
-    const [seconds, setSeconds ] =  useState(initialSeconds);
+    const [seconds, setSeconds ] =  useState(timer);
 
     useEffect(()=>{
     let myInterval = setInterval(() => {
@@ -25,7 +26,7 @@ const Timer = () => {
             }
             
             if(minutes === 0 && seconds === 0){
-                finishGame();
+                //finishGame();
             }
 
         }, 1000)

@@ -1,10 +1,10 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import LoginContext from "../context/Login/loginContext";
 
 const Header = () => {
   const loginContext = useContext(LoginContext);
   const { user } = loginContext;
-  const {earnings} = loginContext;
+  const { earnings } = loginContext;
 
   return (
     <Fragment>
