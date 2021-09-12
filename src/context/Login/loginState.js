@@ -6,6 +6,7 @@ import {
   SAVE_QUESTIONS
 } from '../../types';
 const LoginState = (props) => {
+  
   const initialState = {
     user: '',
     questions:[],

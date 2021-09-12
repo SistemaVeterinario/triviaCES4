@@ -51,13 +51,15 @@ const Login = (props) => {
 
 const loginContext = useContext(LoginContext);
 const {saveUser} = loginContext;
+
   const [user, setUser] = useState({
        userName: '',
        category:'',
        difficulty: ''
   });
 
-  const {userName,category, difficulty} = user;
+  const {userName,category, difficulty} = user;  
+
   const onSubmit = e => {
       e.preventDefault();
       saveUser(user);
@@ -71,8 +73,7 @@ const {saveUser} = loginContext;
         ...user,
         [name]: value
     })
-
-};
+  };
 
   return (
     <Container component="main" maxWidth="xs">

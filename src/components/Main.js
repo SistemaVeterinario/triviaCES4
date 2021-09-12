@@ -13,7 +13,7 @@ const Main = ()=> {
       sendQuestion();
     }, [questions]);  
 
-    const sendQuestion = () => {   
+    const sendQuestion = () => {  
       var index = Math.floor(Math.random()*questions.length);
       var correct = questions[index]?.correct_answer;
       console.log(correct);
