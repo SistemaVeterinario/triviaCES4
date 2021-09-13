@@ -5,22 +5,22 @@ import Timer from './Timer';
 window.updatedQuestions = [];
 window.triviaFinished = false;
 
-const Main = ()=> {
+const Main = (props)=> {
 
     const loginContext = useContext(LoginContext);
-    const {questions} = loginContext;
+    const {questions,
+        addEarnings,
+        resetTimer,
+        finishGame,
+        gameOver,
+        earnings,start } = loginContext;
     const [answer, setAnswer] = useState([]);
     const [question ,setQuestion] = useState('');
     const [selectedAnswer, setSelectedAnswer]=useState('');
     const [currentCorrectAnswer, setCurrentCorrentAnswer]=useState('');
     const [answerClicked, setAnswerClicked]=useState(false);
-    const {addEarnings} = loginContext;
     const [currentEarnings, setCurrentEarnigs] = useState(0);
-    const {resetTimer} = loginContext;
-    const {finishGame} = loginContext;
-    const {gameOver} = loginContext;
-    const {earnings } = loginContext;
-
+    
     useEffect(() => {
       sendQuestion();
       }, [questions]);  
@@ -53,8 +53,8 @@ const Main = ()=> {
           removeQuestion(currentQuestion);
       }
       else {
-        alert("Has perdido, tu puntuación es:" + earnings);
         finishGame(true);
+        alert("Has perdido, tu puntuación es:" + earnings);
       } 
     }
 
@@ -71,27 +71,32 @@ const Main = ()=> {
         }
 
         setTimeout(() => {
-          addEarnings();
+          start();
           sendQuestion();
           setAnswerClicked(false);
           var earnings = currentEarnings + 1000;
           setCurrentEarnigs(earnings);
           addEarnings(earnings);
           resetTimer(30);
-        }, 3000);
+        }, 2000);
+ 
     }
 
+
 return(
-    <Fragment>
+ <Fragment>
      <div className="contenedor-principal">
-        <div class="row">
-          <Timer></Timer>
-        </div>
-       <div className="question">
+     {questions? (
+       <Timer/>
+     ):null}
          {questions? (
-           <h3>{question}</h3>
+           <div className="row">
+           </div>,
+           <div className="question">
+              <h3>{question}</h3>
+           </div>
          ):null}
-       </div>
+    
        <div className="contenedor">
            <div class="row">
              {questions ? (
