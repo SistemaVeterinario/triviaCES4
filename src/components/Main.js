@@ -5,7 +5,7 @@ import Timer from './Timer';
 window.updatedQuestions = [];
 window.triviaFinished = false;
 
-const Main = (props)=> {
+const Main = ()=> {
 
     const loginContext = useContext(LoginContext);
     const {questions,
@@ -20,7 +20,7 @@ const Main = (props)=> {
     const [currentCorrectAnswer, setCurrentCorrentAnswer]=useState('');
     const [answerClicked, setAnswerClicked]=useState(false);
     const [currentEarnings, setCurrentEarnigs] = useState(0);
-    
+
     useEffect(() => {
       sendQuestion();
       }, [questions]);  
@@ -69,9 +69,8 @@ const Main = (props)=> {
           finishGame(true);
           alert("Felicidades, has ganado:" + earnings);
         }
-
+        
         setTimeout(() => {
-          start();
           sendQuestion();
           setAnswerClicked(false);
           var earnings = currentEarnings + 1000;
@@ -86,9 +85,7 @@ const Main = (props)=> {
 return(
  <Fragment>
      <div className="contenedor-principal">
-     {questions? (
        <Timer/>
-     ):null}
          {questions? (
            <div className="row">
            </div>,
